@@ -1,8 +1,10 @@
 #!/bin/bash
 # NOTE: This script is meant to be run from the project's root
 
-DOCKERHUB_PROFILE=irontec
-NAME=sngrep
+#DOCKERHUB_PROFILE=irontec
+#NAME=sngrep
+DOCKERHUB_PROFILE=dockerhub.fvdev.com:5000
+NAME=sharpen-sngrep
 
 # The CI will pass a branch name... use that.
 if [ "${DRONE_BRANCH}" ]; then
