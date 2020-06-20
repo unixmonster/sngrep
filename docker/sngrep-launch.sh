@@ -8,6 +8,8 @@ echo "SCRIPTPATH: ${SCRIPTPATH}"
 
 source ${SCRIPTPATH}/vars.sh
 
+docker pull ${IMAGE}
+
 CMD="docker run --rm -it ${PRIVILEGE} -v ${VOLUME_SRC}:${VOLUME_DIR} ${IMAGE} ${EXEC_CMD}"
 
 ${CMD}
