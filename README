@@ -52,16 +52,26 @@ You can find [detailed instructions for some distributions](https://github.com/i
 
     ./docker/build.sh
 
-You can pass the following flags to the build to enable some features
+This results in a build supporting GnuTLS and all of the other options.
 
-| configure flag | Feature |
-| ------------- | ------------- |
-| `--with-openssl` | Adds OpenSSL support to parse TLS captured messages (req. libssl)  |
-| `--with-gnutls` | Adds GnuTLS support to parse TLS captured messages (req. gnutls)  |
-| `--with-pcre`|  Adds Perl Compatible regular expressions support in regexp fields |
-| `--enable-unicode`   | Adds Ncurses UTF-8/Unicode support (req. libncursesw5) |
-| `--enable-ipv6`   | Enable IPv6 packet capture support. |
-| `--enable-eep`   | Enable EEP packet send/receive support. |
+
+    ██╗██████╗  ██████╗ ███╗   ██╗████████╗███████╗ ██████╗
+    ██║██╔══██╗██╔═══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝
+    ██║██████╔╝██║   ██║██╔██╗ ██║   ██║   █████╗  ██║
+    ██║██╔══██╗██║   ██║██║╚██╗██║   ██║   ██╔══╝  ██║
+    ██║██║  ██║╚██████╔╝██║ ╚████║   ██║   ███████╗╚██████╗
+    ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝ ╚═════╝
+
+    configure:
+    configure: sngrep configure finished
+    configure: ======================================================
+    configure: GnuTLS Support               : yes
+    configure: OpenSSL Support              : no
+    configure: Unicode Support              : yes
+    configure: Perl Expressions Support     : yes
+    configure: IPv6 Support                 : yes
+    configure: EEP Support                  : yes
+    configure: ======================================================
 
 ## Usage
 
@@ -75,9 +85,19 @@ or live capturing, saving packets to a new file
 
 	sngrep -d eth0 -O save.pcap port 5060 and udp
 
-from the docker image
+running using the docker image
 
-    docker run --rm --net=host -it irontec/sngrep sngrep
+    sudo docker run --rm -it --net=host irontec/sngrep sngrep
+
+Use a volume to read files from current directory
+
+    sudo docker run --rm -it -v ${PWD}:/captures --net=host irontec/sngrep sngrep -I /captures/capture.pcap
+
+To install a nice launcher script so you can run the docker version by just typing sngrep
+
+    docker run --rm --net=host irontec/sngrep install | sudo bash
+    docker run --rm --net=host dockerhub.fvdev.com:5000/sharpen-sngrep install | sudo bash
+
 
 ## Configuration
 
