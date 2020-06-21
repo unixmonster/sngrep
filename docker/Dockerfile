@@ -55,7 +55,7 @@ RUN yum install ${RUNTIME_PACKAGES} -y  && yum clean all
 
 WORKDIR /captures
 
-COPY --chown=root:root docker/vars.sh docker/sngrep-launch.sh /usr/local/sbin/
+COPY --chown=root:root docker/sngrep-settings.sh docker/sngrep-launch.sh /usr/local/sbin/
 COPY --chown=root:root docker/sngrep-launcher-install.sh /usr/local/sbin/install 
 
 # Copy compiled versions from our builder step

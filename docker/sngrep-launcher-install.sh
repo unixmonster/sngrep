@@ -24,7 +24,7 @@ cat <<ENVELOPE
 ENVELOPE
 
 #
-# The VARS
+# The Settings Files
 #
 cat <<ENVELOPE
 cat << 'EOF' > ${INSTALL_PATH}/${SETTINGS_FILE}
@@ -34,7 +34,7 @@ cat <${SCRIPTPATH}/${SETTINGS_FILE}
 
 cat <<ENVELOPE
 EOF
-chmod 755 ${INSTALL_PATH}/${SETTINGS_FILES}
+chmod 755 ${INSTALL_PATH}/${SETTINGS_FILE}
 # -- vars file EOF --
 
 ENVELOPE
