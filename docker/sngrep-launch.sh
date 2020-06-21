@@ -1,10 +1,14 @@
 #!/bin/bash
+
 # Absolute path to this script, e.g. /home/user/bin/foo.sh
 SCRIPT=$(readlink -f "$0")
+
 # Absolute path this script is in, thus /home/user/bin
 SCRIPTPATH=$(dirname "${SCRIPT}")
 
-source ${SCRIPTPATH}/vars.sh
+SETTINGS_FILE=sngrep-settings.sh
+
+source ${SCRIPTPATH}/${SETTINGS_FILE}
 
 BASE_COMMAND="docker run --rm ${PRIVILEGE} -v ${VOLUME_SRC}:${VOLUME_DIR}"
 
