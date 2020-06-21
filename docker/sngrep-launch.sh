@@ -2,14 +2,28 @@
 # Absolute path to this script, e.g. /home/user/bin/foo.sh
 SCRIPT=$(readlink -f "$0")
 # Absolute path this script is in, thus /home/user/bin
-SCRIPTPATH=$(dirname "$SCRIPT")
-
-echo "SCRIPTPATH: ${SCRIPTPATH}"
+SCRIPTPATH=$(dirname "${SCRIPT}")
 
 source ${SCRIPTPATH}/vars.sh
 
-docker pull ${IMAGE}
+BASE_COMMAND="docker run --rm ${PRIVILEGE} -v ${VOLUME_SRC}:${VOLUME_DIR}"
 
-CMD="docker run --rm -it ${PRIVILEGE} -v ${VOLUME_SRC}:${VOLUME_DIR} ${IMAGE} ${EXEC_CMD}"
+docker pull ${IMAGE} >/dev/null
+
+if [ "$1" == "bash" ]; then
+    OUTPUT="true"
+    CMD="${BASE_COMMAND} -it ${IMAGE} bash"
+elif [ "$1" == "install" ]; then
+    CMD=$(${BASE_COMMAND} ${IMAGE} install | sudo bash)
+else
+    OUTPUT="true"
+    CMD="${BASE_COMMAND} -it ${IMAGE} ${EXEC_CMD}"
+fi
+
+if [ "${OUTPUT}" == "true" ]; then
+    echo "SCRIPTPATH: ${SCRIPTPATH}"
+    echo "PWD: ${PWD}"
+    echo "COMMAND_LINE: $0 $*"
+fi
 
 ${CMD}
